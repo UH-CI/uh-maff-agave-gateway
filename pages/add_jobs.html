@@ -325,6 +325,9 @@
     <script src="../bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
     <script src="../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
 
+    <!-- Custom JS functions for working with AGAVE for this App -->
+    <script src="../dist/js/app.js"></script>
+
     <script>
 
     function submitJob(){
@@ -375,43 +378,9 @@
             }); 
 
     }
-    function getAccessTokenCookie(){
-            var name ="token=";
-            var ca = document.cookie.split(';');
-            for(var i=0; i<ca.length; i++) {
-                var c = ca[i];
-                while (c.charAt(0)==' ') c = c.substring(1);
-                if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
-            }
-            return "";
-        }
-
-
-
-    //file functions//////////////////////
-    function getStorageDirectoryListing(system_id, file_path){
-            
-        $.ajax({
-          type: "GET",
-          url: "https://agave.iplantc.org:443/files/v2/listings/system/"+system_id+"/"+file_path,
-          dataType: 'json',
-          async: false,
-          headers: {
-            "Authorization": "Bearer " + getAccessTokenCookie(),
-            "Content-Type":"application/x-www-form-urlencoded"
-          },
-          data: {},
-          success: function (data){
-            mydata= data
-            //populateDirectoryTable(mydata, table)
-            //$('#file_path').val(dir_path)
-            //$('#fileModal').modal('hide');
-          }
-        }); 
-    }
 
     //TODO fix the to use dir_data vs the mydata
-    function populateDirectoryTable(dir_data, dir_table,system){
+    function populateDirectoryTableForSelect(dir_data, dir_table,system){
         dir_table.clear();
         for (var i = 0; i < mydata.result.length; i++) {
             var actions = '<span class="fa fa-file btn btn-default" onclick="selectFileInput(\''+mydata.result[i].path+'\')"> Select File</span>'
@@ -426,7 +395,7 @@
     function goToStorageFolder(dir_path, dir_table,system){
         //$('#fileModal').modal('show');
         getStorageDirectoryListing(system, dir_path)
-        populateDirectoryTable(mydata, table)
+        populateDirectoryTableForSelect(mydata, table)
         $('#file_path').val(dir_path)
     }
 
@@ -455,7 +424,7 @@
             });
             $('#file_path').val(file_path)
             getStorageDirectoryListing(system_id, file_path)
-            populateDirectoryTable(mydata, table,system_id)
+            populateDirectoryTableForSelect(mydata, table,system_id)
             
 
             $('#path_button').click(function(){
