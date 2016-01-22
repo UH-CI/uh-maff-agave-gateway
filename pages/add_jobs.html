@@ -237,11 +237,11 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="loadinModalLabel">Loading</h4>
+                    <h4 class="modal-title" id="loadinModalLabel">Please Wait....</h4>
                 </div>
                 <div class="modal-body">
                     <center>
-                    Fetching File List 
+                    Submitting Job To AGAVE
                     </br>
                     <h1><span class="fa fa-spinner fa-spin"></span></h1>
                 </center>
@@ -336,7 +336,7 @@
               type: "POST",
               url: "https://agave.iplantc.org:443/jobs/v2/",
               dataType: 'json',
-              async: false,
+              async: true,
               headers: {
                 "Authorization": "Bearer " + getAccessTokenCookie(),
                 "Content-Type":"application/x-www-form-urlencoded"
@@ -374,6 +374,7 @@
                     },
               success: function (data){
                 mydata=data
+                 $('#loadingModal').modal('hide');
               }
             }); 
 
@@ -412,6 +413,7 @@
     $( document ).ready(function() {
             $('#job_form').submit(function function_name (event) {
                 event.preventDefault();
+                $('#loadingModal').modal('show');
                 submitJob();
             })  
             $('#file_select_button').click(function(){
