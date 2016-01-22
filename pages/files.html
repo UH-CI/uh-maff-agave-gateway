@@ -203,54 +203,6 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="odd gradeX">
-                                            <td>Trident</td>
-                                            <td>text</td>
-                                            <td>4k</td>
-                                            <td class="center">1/1/2016 4:00:00</td>
-                                            <td class="center">1/1/2016 4:00:00</td>
-                                            <td class="center fa fa-download"></td>
-                                        </tr>
-                                        <tr class="odd gradeX">
-                                            <td>blarg</td>
-                                            <td>gig</td>
-                                            <td>4k</td>
-                                            <td class="center">1/1/2016 4:00:00</td>
-                                            <td class="center">1/1/2016 4:00:00</td>
-                                            <td class="center fa fa-download"></td>
-                                        </tr>
-                                        <tr class="odd gradeX">
-                                            <td>moog</td>
-                                            <td>fasta</td>
-                                            <td>14k</td>
-                                            <td class="center">1/1/2016 4:00:00</td>
-                                            <td class="center">1/1/2016 4:00:00</td>
-                                            <td class="center fa fa-download"></td>
-                                        </tr>
-                                        <tr class="odd gradeX">
-                                            <td>moog2</td>
-                                            <td>fasta</td>
-                                            <td>134k</td>
-                                            <td class="center">1/1/2016 4:00:00</td>
-                                            <td class="center">1/1/2016 4:00:00</td>
-                                            <td class="center fa fa-download"></td>
-                                        </tr>
-                                        <tr class="odd gradeX">
-                                            <td>moog3</td>
-                                            <td>fasta</td>
-                                            <td>44k</td>
-                                            <td class="center">1/1/2016 4:00:00</td>
-                                            <td class="center">1/1/2016 4:00:00</td>
-                                            <td class="center fa fa-download"></td>
-                                        </tr>
-                                        <tr class="odd gradeX">
-                                            <td>temp</td>
-                                            <td>fasta</td>
-                                            <td>44k</td>
-                                            <td class="center">1/1/2016 4:00:00</td>
-                                            <td class="center">1/1/2016 4:00:00</td>
-                                            <td class="center fa fa-folder"></td>
-                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -308,60 +260,12 @@
     <!-- DataTables JavaScript -->
     <script src="../bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
     <script src="../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+
+    <!-- Custom JS functions for working with AGAVE for this App -->
+    <script src="../dist/js/app.js"></script>
     <script>
 
-        //Fetch the files on a system
-        //system_id ="sftp.lustre.storage.uhhpc1.its.hawaii.edu"
-        //file_path = "/lus/scratch/seanbc"
 
-        function getStorageDirectoryListing(system_id, file_path){
-            
-            $.ajax({
-              type: "GET",
-              url: "https://agave.iplantc.org:443/files/v2/listings/system/"+system_id+"/"+file_path,
-              dataType: 'json',
-              async: false,
-              headers: {
-                "Authorization": "Bearer " + getAccessTokenCookie(),
-                "Content-Type":"application/x-www-form-urlencoded"
-              },
-              data: {},
-              success: function (data){
-                mydata= data
-                //populateDirectoryTable(mydata, table)
-                //$('#file_path').val(dir_path)
-                //$('#fileModal').modal('hide');
-              }
-            }); 
-        }
-        function getAccessTokenCookie(){
-            var name ="token=";
-            var ca = document.cookie.split(';');
-            for(var i=0; i<ca.length; i++) {
-                var c = ca[i];
-                while (c.charAt(0)==' ') c = c.substring(1);
-                if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
-            }
-            return "";
-        }
-        function populateDirectoryTable(dir_data, dir_table,system){
-            dir_table.clear();
-            for (var i = 0; i < mydata.result.length; i++) {
-                var actions = '<span class="fa fa-file"></span>'
-                if (mydata.result[i].type == "dir"){
-                    actions = '<span class="fa fa-folder btn btn-primary" onclick="goToStorageFolder(\''+mydata.result[i].path+'\', table, system_id)"></span>'
-                }
-                dir_table.row.add([mydata.result[i].name, mydata.result[i].type, mydata.result[i].length, mydata.result[i].lastModified, mydata.result[i].path, actions])
-            }
-            dir_table.draw();
-        }
-
-        function goToStorageFolder(dir_path, dir_table,system){
-            //$('#fileModal').modal('show');
-            getStorageDirectoryListing(system, dir_path)
-            populateDirectoryTable(mydata, table)
-            $('#file_path').val(dir_path)
-        }
 
         var table = ""
         var mydata = ""
@@ -377,30 +281,7 @@
             $('#path_button').click(function(){
                 goToStorageFolder($('#file_path').val(), table,system_id)
             })
-            /*for (var i = 0; i < mydata.result.length; i++) {
-                table.row.add([mydata.result[i].name, mydata.result[i].type, mydata.result[i].length, mydata.result[i].lastModified, mydata.result[i].path, "someaction"])
-            }
-            table.draw();
-            */
-            //table
-            //    .clear()
-            //    .draw();
-        /*    t.row.add([{
-            filename:"aname",
-            filetype:"atype",
-            size:"asize",
-            last_modified:'atime',
-            created:"atime",
-            actions:'aaction'
-            }])
-            t.row.add([{
-            "aname",
-            "atype",
-            "asize",
-            'atime',
-            "atime",
-            'aaction'
-            }])*/
+
         });
     </script>
 

@@ -1,3 +1,10 @@
+
+$( document ).ready(function() {
+//This that should happen for each page - like check user is logged in
+}); //close jquery ready block
+
+
+///////// USER LOGIN AND API TOKEN FUNCTIONS ////////////////////////////
 function agaveAuth(username, password, tenant_name){
     
     //if (getAccessTokenCookie("token") == 0){
@@ -74,11 +81,50 @@ function getUsernameCookie(){
     return "";
 }
 
-$( document ).ready(function() {
-        $('#login_form').submit(function function_name (event) {
-            event.preventDefault();
-            $('#authModal').modal('show');
-            agaveAuth($('#username').val(), $('#password').val(),"test-app")
-            
-        })  
-}); //close jquery ready block
+//////////////// FILE API RELATED FUNCTIONS /////////////////////////////
+
+//Fetch the files on a system
+//system_id ="sftp.lustre.storage.uhhpc1.its.hawaii.edu"
+//file_path = "/lus/scratch/seanbc"
+
+function getStorageDirectoryListing(system_id, file_path){
+    
+    $.ajax({
+      type: "GET",
+      url: "https://agave.iplantc.org:443/files/v2/listings/system/"+system_id+"/"+file_path,
+      dataType: 'json',
+      async: false,
+      headers: {
+        "Authorization": "Bearer " + getAccessTokenCookie(),
+        "Content-Type":"application/x-www-form-urlencoded"
+      },
+      data: {},
+      success: function (data){
+        mydata= data
+        //populateDirectoryTable(mydata, table)
+        //$('#file_path').val(dir_path)
+        //$('#fileModal').modal('hide');
+      }
+    }); 
+}
+
+function populateDirectoryTable(dir_data, dir_table,system){
+    dir_table.clear();
+    for (var i = 0; i < mydata.result.length; i++) {
+        var actions = '<span class="fa fa-file"></span>'
+        if (mydata.result[i].type == "dir"){
+            actions = '<span class="fa fa-folder btn btn-primary" onclick="goToStorageFolder(\''+mydata.result[i].path+'\', table, system_id)"></span>'
+        }
+        dir_table.row.add([mydata.result[i].name, mydata.result[i].type, mydata.result[i].length, mydata.result[i].lastModified, mydata.result[i].path, actions])
+    }
+    dir_table.draw();
+}
+
+function goToStorageFolder(dir_path, dir_table,system){
+    //$('#fileModal').modal('show');
+    getStorageDirectoryListing(system, dir_path)
+    populateDirectoryTable(mydata, table)
+    $('#file_path').val(dir_path)
+}
+
+
