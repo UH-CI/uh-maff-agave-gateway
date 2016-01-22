@@ -1,7 +1,12 @@
 
 $( document ).ready(function() {
   //This that should happen for each page - like check user is logged in
-  checkUserAuthed()
+  var sPath = window.location.pathname;
+  var sPage = sPath.substring(sPath.lastIndexOf('/') + 1);
+  if(sPage != "login.html"){
+     checkUserAuthed()
+  }
+  
 }); //close jquery ready block
 
 
