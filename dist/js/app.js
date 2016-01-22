@@ -101,9 +101,6 @@ function getStorageDirectoryListing(system_id, file_path){
       data: {},
       success: function (data){
         mydata= data
-        //populateDirectoryTable(mydata, table)
-        //$('#file_path').val(dir_path)
-        //$('#fileModal').modal('hide');
       }
     }); 
 }
