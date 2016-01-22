@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>UH AGAVE App</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="../bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- DataTables CSS -->
+    <link href="../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">UH AGAGE - Create New Job</a>
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+               
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-tasks fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-tasks">
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <p>
+                                        <strong>Job 1</strong>
+                                        <span class="pull-right text-muted">Waiting</span>
+                                    </p>
+                                    In Queue
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <p>
+                                        <strong>Job 2</strong>
+                                        <span class="pull-right text-muted">Running</span>
+                                    </p>
+                                    Running
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <p>
+                                        <strong>Job 3</strong>
+                                        <span class="pull-right text-muted">Finished</span>
+                                    </p>
+                                    Finished
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <p>
+                                        <strong>Job 4</strong>
+                                        <span class="pull-right text-muted warning">Failed</span>
+                                    </p>
+                                    Failed
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a class="text-center" href="#">
+                                <strong>See All Jobs</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-tasks -->
+                    <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        
+                        <li>
+                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-files-o fa-fw"></i>Pages<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="add_jobs.html">Add Job</a>
+                                </li>
+                                <li>
+                                    <a href="jobs.html">View Jobs</a>
+                                </li>
+                                <li>
+                                    <a href="files.html">View Files</a>
+                                </li>
+                                <li>
+                                    <a href="login.html">Login Page</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
+        <!-- Page Content -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">Submit New Job</h1>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+                <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Workflow Job Submition Form
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <form id="job_form" role="form">    
+                                        <div class="form-group">
+                                            <label>Number of Nodes</label>
+                                            <input id="job_nodes" class="form-control" placeholder="1">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Number of core per node</label>
+                                            <input id="job_cores" class="form-control" placeholder="20">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Memory per core (in GB)</label>
+                                            <input id="job_memory" class="form-control" placeholder="6">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>MAFFT Fasta File input</label>
+                                            <input id="job_file" class="form-control" placeholder="agave://sftp.lustre.storage.uhhpc1.its.hawaii.edu/input.fasta">
+                                            <button type="button" id="file_select_button" class="btn btn-default">Select Input File</button>
+                                        </div>
+                                         <div class="form-group">
+                                            <label>Job description</label>
+                                            <textarea class="form-control" rows="3"></textarea>
+                                        </div>   
+                                   
+                                        <button class="btn btn-primary">Submit Button</button>
+                                    </form>
+                                </div>
+                                
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+    <!-- Modal -->
+    <div class="modal fade" id="loadingModal" tabindex="-1" role="dialog" aria-labelledby="loadingModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="loadinModalLabel">Loading</h4>
+                </div>
+                <div class="modal-body">
+                    <center>
+                    Fetching File List 
+                    </br>
+                    <h1><span class="fa fa-spinner fa-spin"></span></h1>
+                </center>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+    <!-- Modal -->
+    <div class="modal fade" id="fileModal" tabindex="-1" role="dialog" aria-labelledby="fileModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="fileModalLabel">Select Input File</h4>
+                </div>
+                <div class="modal-body">
+                    <div id = "panel_heading" class="panel-heading">
+                            UH HPC Luster Scratch: 
+                            <input id="file_path" type="text" value="/lus/scratch/analysis" size="100">
+                            <button id="path_button" class="btn btn-primary">Go</button>
+                        </div>
+                    <div class="dataTable_wrapper">
+                        <table class="table table-striped table-bordered table-hover" id="dataTables-filelist" style="width:600px;">
+                            <thead>
+                                <tr>
+                                    <th>Filename</th>
+                                    <th>Filetype</th>
+                                    <th>Size</th>
+                                    <th>Last Modified</th>
+                                    <th>Created</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th>Filename</th>
+                                    <th>Filetype</th>
+                                    <th>Size</th>
+                                    <th>Last Modified</th>
+                                    <th>Created</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                <tr>
+                                    <th>Filename</th>
+                                    <th>Filetype</th>
+                                    <th>Size</th>
+                                    <th>Last Modified</th>
+                                    <th>Created</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.table-responsive -->
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+                               
+
+    <!-- jQuery -->
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="../dist/js/sb-admin-2.js"></script>
+    <!-- DataTables JavaScript -->
+    <script src="../bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script src="../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+
+    <script>
+
+    function submitJob(){
+
+        $.ajax({
+              type: "POST",
+              url: "https://agave.iplantc.org:443/jobs/v2/",
+              dataType: 'json',
+              async: false,
+              headers: {
+                "Authorization": "Bearer " + getAccessTokenCookie(),
+                "Content-Type":"application/x-www-form-urlencoded"
+              },
+              data: {
+                      "name":"uh-mafft "+Date.now(),
+                      "appId": "uh-mafft-7.245",
+                      "batchQueue": "sb.q",
+                      "executionSystem": "sb.execute.uhhpc1.its.hawaii.edu",
+                      "maxRunTime": "00:00:30",
+                      "memoryPerNode": $('#job_memory').val()+"GB",
+                      "nodeCount": $('#job_nodes').val(),
+                      "processorsPerNode": $('#job_cores').val(),
+                      "archive": true,
+                      "archiveSystem": "sftp.lustre.storage.uhhpc1.its.hawaii.edu",
+                      "archivePath": null,
+                      "input1":"agave://sftp.lustre.storage.uhhpc1.its.hawaii.edu/"+$('#job_file').val().split('lus/scratch/seanbc/')[1],
+                      "notifications": [
+                        {
+                          "url":"http://requestbin.agaveapi.co/11jcjnt1?job_id=${JOB_ID}&status=${JOB_STATUS}",
+                          "event":"*",
+                          "persistent":true
+                        },
+                        {
+                          "url":"seanbc@hawaii.edu",
+                          "event":"FINISHED",
+                          "persistent":false
+                        },
+                        {
+                          "url":"seanbc@hawaii.edu",
+                          "event":"FAILED",
+                          "persistent":false
+                        }
+                      ]
+                    },
+              success: function (data){
+                mydata=data
+              }
+            }); 
+
+    }
+    function getAccessTokenCookie(){
+            var name ="token=";
+            var ca = document.cookie.split(';');
+            for(var i=0; i<ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0)==' ') c = c.substring(1);
+                if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+            }
+            return "";
+        }
+
+
+
+    //file functions//////////////////////
+    function getStorageDirectoryListing(system_id, file_path){
+            
+        $.ajax({
+          type: "GET",
+          url: "https://agave.iplantc.org:443/files/v2/listings/system/"+system_id+"/"+file_path,
+          dataType: 'json',
+          async: false,
+          headers: {
+            "Authorization": "Bearer " + getAccessTokenCookie(),
+            "Content-Type":"application/x-www-form-urlencoded"
+          },
+          data: {},
+          success: function (data){
+            mydata= data
+            //populateDirectoryTable(mydata, table)
+            //$('#file_path').val(dir_path)
+            //$('#fileModal').modal('hide');
+          }
+        }); 
+    }
+
+    //TODO fix the to use dir_data vs the mydata
+    function populateDirectoryTable(dir_data, dir_table,system){
+        dir_table.clear();
+        for (var i = 0; i < mydata.result.length; i++) {
+            var actions = '<span class="fa fa-file btn btn-default" onclick="selectFileInput(\''+mydata.result[i].path+'\')"> Select File</span>'
+            if (mydata.result[i].type == "dir"){
+                actions = '<span class="fa fa-folder btn btn-primary" onclick="goToStorageFolder(\''+mydata.result[i].path+'\', table, system_id)"></span>'
+            }
+            dir_table.row.add([mydata.result[i].name, mydata.result[i].type, mydata.result[i].length, mydata.result[i].lastModified, mydata.result[i].path, actions])
+        }
+        dir_table.draw();
+    }
+
+    function goToStorageFolder(dir_path, dir_table,system){
+        //$('#fileModal').modal('show');
+        getStorageDirectoryListing(system, dir_path)
+        populateDirectoryTable(mydata, table)
+        $('#file_path').val(dir_path)
+    }
+
+    function selectFileInput(path){
+        $('#fileModal').modal('hide');
+        $('#job_file').val(path);
+    }
+    //////////////////////////////////////
+
+    var table = ""
+    var mydata = ""
+    var system_id ="sftp.lustre.storage.uhhpc1.its.hawaii.edu"
+    var file_path = "/lus/scratch/seanbc"
+    $( document ).ready(function() {
+            $('#job_form').submit(function function_name (event) {
+                event.preventDefault();
+                submitJob();
+            })  
+            $('#file_select_button').click(function(){
+                $('#fileModal').modal('show');
+            })
+            //File modal and table stuff
+            table = $('#dataTables-filelist').DataTable({
+                //"scrollY":        "300px",
+                //"paging":         true
+            });
+            $('#file_path').val(file_path)
+            getStorageDirectoryListing(system_id, file_path)
+            populateDirectoryTable(mydata, table,system_id)
+            
+
+            $('#path_button').click(function(){
+                goToStorageFolder($('#file_path').val(), table,system_id)
+            })
+        }); //close jquery ready block
+    </script>
+
+</body>
+
+</html>

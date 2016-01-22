@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="../bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="login-panel panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Please Sign In</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form id="login_form" role="form">
+                            <fieldset>
+                                <div class="form-group">
+                                    <input class="form-control" id="username" placeholder="Username" name="username" type="text" autofocus>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" id="password" placeholder="Password" name="password" type="password" value="">
+                                </div>
+                                <!-- Change this to a button or input when using this as a form -->
+                                <button id="login_button" class="btn btn-lg btn-success btn-block">Login</button>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                            <!-- Modal -->
+    <div class="modal fade" id="authModal" tabindex="-1" role="dialog" aria-labelledby="authModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="authModalLabel">Authenticating</h4>
+                </div>
+                <div class="modal-body">
+                    <center>
+                    Authenticating your credentials with AGAVE 
+                    </br>
+                    <h1><span class="fa fa-spinner fa-spin"></span></h1>
+                </center>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+    <!-- jQuery -->
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="../dist/js/sb-admin-2.js"></script>
+    <script>
+    var mydata=""
+        function agaveAuth(username, password, tenant_name){
+            
+            //if (getAccessTokenCookie("token") == 0){
+                //Fetch the Session/Tenant data from AGAVE for the user
+                $.ajax
+                ({
+                  type: "POST",
+                  url: "https://agave.iplantc.org:443/clients/v2/",
+                  dataType: 'json',
+                  async: true,
+                  headers: {
+                    "Authorization": "Basic " + btoa(username + ":" + password)
+                  },
+                  data: { clientName: tenant_name, description: "some description", tier:"UNLIMITED", callbackUrl: null },
+                  success: function (data){
+                    getAgaveAccessToken(data.result.consumerKey, data.result.consumerSecret)     
+                    $('#authModal').modal('hide');
+                  }
+                });
+                
+            //}
+            //else{
+            //    alert("user already logged in!")
+            //}
+            return
+        }
+        function getAgaveAccessToken(consumerKey, consumerSecret){
+            //Fetch the access token for the Session/Tenant for this user
+            $.ajax({
+              type: "POST",
+              url: "https://agave.iplantc.org:443/token",
+              dataType: 'json',
+              async: false,
+              headers: {
+                "Authorization": "Basic " + btoa(consumerKey + ":" + consumerSecret),
+                "Content-Type":"application/x-www-form-urlencoded"
+              },
+              data: { grant_type: "client_credentials", username: "apiuser", password:"apiuser", scope:"PRODUCTION", callbackUrl: null },
+              success: function (data){
+                mydata=data
+                setAccessTokenCookie(data.access_token,1)
+                window.location.assign("index.html")
+              }
+            });   
+        }
+        function setAccessTokenCookie(value, expire_days) {
+            var d = new Date();
+            d.setTime(d.getTime() + (expire_days*24*60*60*1000));
+            var expires = "expires="+d.toUTCString();
+            document.cookie = "token=" + value + "; " + expires;
+        }
+
+        function getAccessTokenCookie(){
+            var name ="token=";
+            var ca = document.cookie.split(';');
+            for(var i=0; i<ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0)==' ') c = c.substring(1);
+                if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+            }
+            return "";
+        }
+
+
+        $( document ).ready(function() {
+            $('#login_form').submit(function function_name (event) {
+                event.preventDefault();
+                $('#authModal').modal('show');
+                agaveAuth($('#username').val(), $('#password').val(),"test-app")
+                
+            })  
+        }); //close jquery ready block
+
+
+       
+    </script>
+
+</body>
+
+</html>
