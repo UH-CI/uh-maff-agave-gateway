@@ -228,7 +228,9 @@
         var mydata
         var system = "sb.execute.uhhpc1.its.hawaii.edu"
         $( document ).ready(function() {
-            table = $('#dataTables-joblist').DataTable();
+            table = $('#dataTables-joblist').DataTable({
+                "order": [[ 3, "desc" ]]
+            });
             getJobListing(system)
             populateJobTable(mydata, table, system)
 
