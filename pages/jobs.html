@@ -191,46 +191,6 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="odd gradeX">
-                                            <td>Job 1323432423423423423</td>
-                                            <td>Queued</td>
-                                            <td></td>
-                                            <td class="center">1/1/2016 13:45:30</td>
-                                            <td class="center">1/1/2016 13:45:30</td>
-                                            <td class="center"></td>
-                                        </tr>
-                                        <tr class="odd gradeX">
-                                            <td>Job 34324234511234234234</td>
-                                            <td>Running</td>
-                                            <td></td>
-                                            <td class="center">1/1/2016 4:00:00</td>
-                                            <td class="center">1/1/2016 13:45:30</td>
-                                            <td class="center"></td>
-                                        </tr>
-                                        <tr class="odd gradeX">
-                                            <td>Job 6457453453234234234</td>
-                                            <td>Running</td>
-                                            <td></td>
-                                            <td class="center">1/1/2016 5:20:00</td>
-                                            <td class="center">1/1/2016 13:45:30</td>
-                                            <td class="center"></td>
-                                        </tr>
-                                        <tr class="odd gradeX">
-                                            <td>Job 199984324234234234</td>
-                                            <td>Finished</td>
-                                            <td></td>
-                                            <td class="center">1/1/2016 2:50:00</td>
-                                            <td class="center">1/1/2016 13:45:30</td>
-                                            <td class="center">1/1/2016 19:34:30</td>
-                                        </tr>
-                                        <tr class="odd gradeX">
-                                            <td>Job 73234324234234234</td>
-                                            <td>Failed</td>
-                                            <td></td>
-                                            <td class="center">1/1/2016 2:10:00</td>
-                                            <td class="center">1/1/2016 13:45:30</td>
-                                            <td class="center">1/1/2016 2:15:00</td>
-                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -262,45 +222,11 @@
     <script src="../bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
     <script src="../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
 
+    <!-- Custom JS functions for working with AGAVE for this App -->
+    <script src="../dist/js/app.js"></script>
     <script>
         var mydata
         var system = "sb.execute.uhhpc1.its.hawaii.edu"
-        function getJobListing(system_id){
-            $.ajax({
-              type: "GET",
-              url: "https://agave.iplantc.org:443/jobs/v2/",
-              dataType: 'json',
-              async: false,
-              data:{execution_system: system_id},
-              headers: {
-                "Authorization": "Bearer " + getAccessTokenCookie(),
-                "Content-Type":"application/x-www-form-urlencoded"
-              },
-              data: {},
-              success: function (data){
-                mydata= data
-              }
-            }); 
-        }
-
-        function populateJobTable(job_data, job_table, system){
-            job_table.clear();
-            for (var i = 0; i < mydata.result.length; i++) {
-                job_table.row.add([mydata.result[i].appId, mydata.result[i].name, mydata.result[i].status, mydata.result[i].created, mydata.result[i].startTime, mydata.result[i].endTime])
-            }
-            job_table.draw();
-        }
-
-        function getAccessTokenCookie(){
-            var name ="token=";
-            var ca = document.cookie.split(';');
-            for(var i=0; i<ca.length; i++) {
-                var c = ca[i];
-                while (c.charAt(0)==' ') c = c.substring(1);
-                if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
-            }
-            return "";
-        }
         $( document ).ready(function() {
             table = $('#dataTables-joblist').DataTable();
             getJobListing(system)

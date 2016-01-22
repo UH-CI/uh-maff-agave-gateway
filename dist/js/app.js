@@ -127,4 +127,31 @@ function goToStorageFolder(dir_path, dir_table,system){
     $('#file_path').val(dir_path)
 }
 
+///////////////// JOB LIST API FUNCTIONS ///////////////////////////////
+
+function getJobListing(system_id){
+    $.ajax({
+      type: "GET",
+      url: "https://agave.iplantc.org:443/jobs/v2/",
+      dataType: 'json',
+      async: false,
+      data:{execution_system: system_id},
+      headers: {
+        "Authorization": "Bearer " + getAccessTokenCookie(),
+        "Content-Type":"application/x-www-form-urlencoded"
+      },
+      data: {},
+      success: function (data){
+        mydata= data
+      }
+    }); 
+}
+
+function populateJobTable(job_data, job_table, system){
+    job_table.clear();
+    for (var i = 0; i < mydata.result.length; i++) {
+        job_table.row.add([mydata.result[i].appId, mydata.result[i].name, mydata.result[i].status, mydata.result[i].created, mydata.result[i].startTime, mydata.result[i].endTime])
+    }
+    job_table.draw();
+}
 
