@@ -1,6 +1,7 @@
 
 $( document ).ready(function() {
-//This that should happen for each page - like check user is logged in
+  //This that should happen for each page - like check user is logged in
+  checkUserAuthed()
 }); //close jquery ready block
 
 
@@ -31,7 +32,12 @@ function agaveAuth(username, password, tenant_name){
     //}
     return
 }
-
+function checkUserAuthed(){
+  if (getAccessTokenCookie() == "")
+     {//user is not logged in redirect to login page
+      window.location.assign("login.html")
+    }
+}
 function getAgaveAccessToken(consumerKey, consumerSecret, username){
     //Fetch the access token for the Session/Tenant for this user
     $.ajax({
