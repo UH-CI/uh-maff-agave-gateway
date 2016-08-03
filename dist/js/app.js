@@ -1,4 +1,6 @@
 
+var mydatac;
+
 $( document ).ready(function() {
   //This that should happen for each page - like check user is logged in
   var sPath = window.location.pathname;
@@ -17,8 +19,8 @@ function agaveAuth(username, password, tenant_name){
         //Fetch the Session/Tenant data from AGAVE for the user
         $.ajax
         ({
-          type: "POST",
-          url: "https://agave.iplantc.org:443/clients/v2/",
+          type: "GET",
+          url: "https://agaveauth.its.hawaii.edu/clients/v2/",
           dataType: 'json',
           async: true,
           headers: {
@@ -26,7 +28,12 @@ function agaveAuth(username, password, tenant_name){
           },
           data: { clientName: tenant_name, description: "some description", tier:"UNLIMITED", callbackUrl: null },
           success: function (data){
-            getAgaveAccessToken(data.result.consumerKey, data.result.consumerSecret, username)     
+            mydatac=data;
+            for(var i=0; i<data.result.length; i++) {
+              if (data.result[i].name == tenant_name){
+                getAgaveAccessToken(data.result[i].consumerKey, "MelpVHgJH3iC5UzDcKRjY8Q02cAa", username, password)   
+              }
+            }  
             $('#authModal').modal('hide');
           }
         });
@@ -43,18 +50,18 @@ function checkUserAuthed(){
       window.location.assign("login.html")
     }
 }
-function getAgaveAccessToken(consumerKey, consumerSecret, username){
+function getAgaveAccessToken(consumerKey, consumerSecret, username, password){
     //Fetch the access token for the Session/Tenant for this user
     $.ajax({
       type: "POST",
-      url: "https://agave.iplantc.org:443/token",
+      url: "https://agaveauth.its.hawaii.edu/token",
       dataType: 'json',
       async: false,
       headers: {
         "Authorization": "Basic " + btoa(consumerKey + ":" + consumerSecret),
         "Content-Type":"application/x-www-form-urlencoded"
       },
-      data: { grant_type: "client_credentials", username: "apiuser", password:"apiuser", scope:"PRODUCTION", callbackUrl: null },
+      data: { grant_type: "client_credentials", username: username, password: password, scope:"PRODUCTION", callbackUrl: null },
       success: function (data){
         mydata=data
         setAccessTokenCookie(data.access_token, username, 6)
@@ -102,7 +109,7 @@ function getStorageDirectoryListing(system_id, file_path){
     
     $.ajax({
       type: "GET",
-      url: "https://agave.iplantc.org:443/files/v2/listings/system/"+system_id+"/"+file_path,
+      url: "https://agaveauth.its.hawaii.edu/files/v2/listings/system/"+system_id+"/"+file_path,
       dataType: 'json',
       async: false,
       headers: {
@@ -140,7 +147,7 @@ function goToStorageFolder(dir_path, dir_table,system){
 function getJobListing(system_id){
     $.ajax({
       type: "GET",
-      url: "https://agave.iplantc.org:443/jobs/v2/",
+      url: "https://agaveauth.its.hawaii.edu/jobs/v2/",
       dataType: 'json',
       async: false,
       data:{execution_system: system_id},
